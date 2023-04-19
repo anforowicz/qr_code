@@ -1,4 +1,6 @@
+#[cfg(debug_assertions)]
 use std::convert::TryInto;
+
 use std::fmt::Display;
 
 // TODO remove this, use try_into wher as_* is used

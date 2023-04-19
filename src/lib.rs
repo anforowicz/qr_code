@@ -11,9 +11,17 @@
     clippy::use_self, // Rust 1.33 doesn't support Self::EnumVariant, let's try again in 1.37.
     clippy::match_like_matches_macro, // MSRV is lower than what's needed for matches!
 )]
-#![cfg_attr(feature = "bench", doc(include = "../README.md"))]
-// ^ make sure we can test our README.md.
+// TODO: Fix coverage of examples from our README.md - apparently the incantation below is not
+// sufficient for this.
+#![cfg_attr(feature = "bench", doc = include_str!("../README.md"))]
 #![cfg_attr(docsrs, feature(doc_cfg))]
+// Using `#[bench]`, `test::Bencher`, and `cargo bench` requires opting into the unstable `test`
+// feature.  See https://github.com/rust-lang/rust/issues/50297 for more details.  Unstable
+// features are only available in the nightly versions of the Rust compiler - to keep stable
+// builds working we only enable benching behind the "bench" feature.
+#![cfg_attr(feature = "bench", feature(test))]
+#[cfg(feature = "bench")]
+extern crate test;
 
 // Re-exported dependencies.
 #[cfg(feature = "bmp")]

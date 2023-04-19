@@ -23,6 +23,7 @@ rand = "0.7.3"
 hex = "0.4.2"
 
 [features]
+bench = []
 bmp = ["bmp-monochrome"]
 decode = ["g2p"]
 fuzz = ["arbitrary"]
