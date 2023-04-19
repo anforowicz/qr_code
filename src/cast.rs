@@ -1,6 +1,4 @@
-#[cfg(debug_assertions)]
 use std::convert::TryInto;
-
 use std::fmt::Display;
 
 // TODO remove this, use try_into wher as_* is used
@@ -41,45 +39,21 @@ impl<T> ExpectOrOverflow for Option<T> {
 
 macro_rules! impl_as {
     ($ty:ty) => {
-        #[cfg(debug_assertions)]
         impl As for $ty {
             fn as_u16(self) -> u16 {
                 self.try_into().unwrap()
             }
-
             fn as_i16(self) -> i16 {
                 self.try_into().unwrap()
             }
-
             fn as_u32(self) -> u32 {
                 self.try_into().unwrap()
             }
-
             fn as_usize(self) -> usize {
                 self.try_into().unwrap()
             }
-
             fn as_isize(self) -> isize {
                 self.try_into().unwrap()
-            }
-        }
-
-        #[cfg(not(debug_assertions))]
-        impl As for $ty {
-            fn as_u16(self) -> u16 {
-                self as u16
-            }
-            fn as_i16(self) -> i16 {
-                self as i16
-            }
-            fn as_u32(self) -> u32 {
-                self as u32
-            }
-            fn as_usize(self) -> usize {
-                self as usize
-            }
-            fn as_isize(self) -> isize {
-                self as isize
             }
         }
     };
